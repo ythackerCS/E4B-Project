@@ -357,7 +357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 194395536}
   isPaused: 0
-  character: {fileID: 1219156626}
+  chacter: {fileID: 1219156626}
 --- !u!1 &382697922
 GameObject:
   m_ObjectHideFlags: 0

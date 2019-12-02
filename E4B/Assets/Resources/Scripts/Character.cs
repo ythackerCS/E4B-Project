@@ -12,7 +12,6 @@ public class Character : MonoBehaviour
     {
         if (MenuControl.instance.isPaused)
         {
-            print(MenuControl.instance.isPaused);
             GetComponent<Rigidbody2D>().gravityScale = 0;
         }
         rigidbody = GetComponent<Rigidbody2D>();
@@ -23,7 +22,7 @@ public class Character : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            if (health > 0)
+            if (health > 0 && !MenuControl.instance.isPaused)
             {
                 rigidbody.AddForce(Vector2.up * 8f, ForceMode2D.Impulse);
             }
@@ -57,7 +56,6 @@ public class Character : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<ToiletPaper>())
         {
-            print("increase score");
             Destroy(collision.gameObject);
             GameController.instance.EarnPoints(10);
         }
