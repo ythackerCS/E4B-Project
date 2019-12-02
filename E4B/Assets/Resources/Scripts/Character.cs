@@ -10,6 +10,11 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (MenuControl.instance.isPaused)
+        {
+            print(MenuControl.instance.isPaused);
+            GetComponent<Rigidbody2D>().gravityScale = 0;
+        }
         rigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -20,7 +25,7 @@ public class Character : MonoBehaviour
         {
             if (health > 0)
             {
-                rigidbody.AddForce(Vector2.up * 7f, ForceMode2D.Impulse);
+                rigidbody.AddForce(Vector2.up * 8f, ForceMode2D.Impulse);
             }
         }
     }
@@ -36,16 +41,25 @@ public class Character : MonoBehaviour
 
     void Die()
     {
-        GetComponent<Rigidbody2D>().gravityScale = 0;
+        GetComponent<Rigidbody2D>().gravityScale = 5;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<ToiletPaper>())
+        if (collision.gameObject.GetComponent<Toilet>())
         {
             takeDamage(1f);
         }
+        
     }
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<ToiletPaper>())
+        {
+            print("increase score");
+            Destroy(collision.gameObject);
+            GameController.instance.EarnPoints(10);
+        }
+    }
 }
